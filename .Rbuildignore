@@ -1,0 +1,15 @@
+^data-raw$
+^\.github$
+^\.Rproj\.user$
+^.*\.Rproj$
+^LICENSE$
+^LICENSE\.md$
+^README\.Rmd$
+^SPEC\.md$
+^rejestr-polecen\.md$
+^cran-comments\.md$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+^vignettes/articles$
+^tools$

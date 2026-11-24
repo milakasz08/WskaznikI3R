@@ -1,0 +1,13 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+*.Rcheck/
+*.tar.gz
+inst/doc
+/doc/
+/Meta/
+
+# Strona budowana lokalnie. Eksport aplikacji wazy okolo stu megabajtow,
+# wiec nie trafia do repozytorium - buduje ja i publikuje przeplyw pracy.
+docs/

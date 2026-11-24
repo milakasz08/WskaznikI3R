@@ -1,0 +1,41 @@
+Package: WskaznikI3R
+Type: Package
+Title: Nieparametryczny Wskaznik Oddzialywania I3* Oparty na Percentylach
+Version: 0.0.1
+Authors@R: c(
+    person("Milena", "Kaszowska",
+           email = "milakasz08@gmail.com",
+           role = c("aut", "cre")),
+    person("Marek", "Deja", role = "ths",
+           comment = c(ORCID = "0000-0003-0015-2322"))
+  )
+Description: Wyznacza wskaznik Integrated Impact Indicator w wariancie I3*
+    (Leydesdorff, Bornmann i Adams 2019) <doi:10.1007/s11192-019-03099-8>,
+    laczacy liczbe publikacji jednostki z ich polozeniem w klasach
+    percentylowych ustalonego zbioru odniesienia. Publikacje o jednakowej
+    liczbie cytowan sa dzielone miedzy klasy ulamkowo (Waltman i Schreiber
+    2013) <doi:10.1002/asi.22775> albo przypisywane regula progowa. Zwraca
+    wynik surowy i wynik na publikacje, licznosci klas oraz slad dopasowania
+    do odniesienia. Zawiera procedure generowania liczb cytowan o znanym
+    rozkladzie.
+License: GPL-3
+Encoding: UTF-8
+Language: pl
+LazyData: true
+Depends:
+    R (>= 4.1)
+Imports:
+    graphics,
+    grDevices,
+    stats,
+    withr
+Suggests:
+    knitr,
+    rmarkdown,
+    testthat (>= 3.0.0)
+VignetteBuilder: knitr
+Config/testthat/edition: 3
+RoxygenNote: 7.3.3
+URL: https://github.com/milakasz08/WskaznikI3R,
+    https://milakasz08.github.io/WskaznikI3R/
+BugReports: https://github.com/milakasz08/WskaznikI3R/issues
