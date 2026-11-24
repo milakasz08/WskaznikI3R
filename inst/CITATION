@@ -1,0 +1,10 @@
+citHeader("Aby zacytowac pakiet WskaznikI3R, uzyj ponizszego opisu.")
+
+bibentry(
+  bibtype  = "Manual",
+  title    = "WskaznikI3R: Nieparametryczny Wskaznik Oddzialywania I3* Oparty na Percentylach",
+  author   = person("Milena", "Kaszowska"),
+  year     = "2027",
+  note     = paste("Pakiet R w wersji", meta$Version),
+  url      = "https://github.com/milakasz08/WskaznikI3R"
+)

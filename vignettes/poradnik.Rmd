@@ -1,0 +1,93 @@
+---
+title: "Porównanie jednostek wskaźnikiem I3*"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Porównanie jednostek wskaźnikiem I3*}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>", fig.width = 6.5,
+                      fig.height = 4)
+```
+
+Poradnik prowadzi przez pełną ścieżkę analizy na danych syntetycznych: od
+wygenerowania liczb cytowań, przez zbiór odniesienia i przypisanie do klas,
+po porównanie jednostek w dwóch skalach i analizę wrażliwości na regułę
+remisów.
+
+```{r}
+library(WskaznikI3R)
+```
+
+## Dane o znanym rozkładzie
+
+Funkcja `generuj_cytowania()` tworzy zbiór odniesienia oraz trzy jednostki.
+Jednostki A i B pochodzą z rozkładu zbioru odniesienia, a w jednostce C
+pięć publikacji ma intensywność cytowań pomnożoną przez 50.
+
+```{r}
+dane <- generuj_cytowania(n = 1000, n_odniesienia = 5000)
+summary(dane$odniesienie$cytowania)
+tapply(dane$publikacje$cytowania, dane$publikacje$jednostka, mean)
+tapply(dane$publikacje$cytowania, dane$publikacje$jednostka, median)
+```
+
+Średnie i mediany nie rozstrzygają porównania: średnia jednostki C jest
+wysoka dzięki kilku publikacjom, a mediany są niemal równe.
+
+## Zbiór odniesienia i klasy
+
+```{r}
+odniesienie <- przygotuj_odniesienie(dane$odniesienie)
+odniesienie
+head(odniesienie$bloki)
+```
+
+Blok publikacji niecytowanych zajmuje dolną część skali percentylowej.
+Blok publikacji z jednym cytowaniem przecina granicę 50%, więc reguła
+ułamkowa dzieli go między dwie najniższe klasy.
+
+```{r}
+udzialy <- przypisz_klasy(dane$publikacje, odniesienie)
+head(udzialy$udzialy)
+```
+
+## Wynik surowy i wynik na publikację
+
+```{r}
+wynik <- oblicz_i3(udzialy, dane$publikacje$jednostka)
+summary(wynik)
+plot(wynik)
+plot(wynik, skala = "na_publikacje")
+```
+
+Wynik surowy porządkuje jednostki według łącznego oddziaływania dorobku,
+w którym przewaga jednostki B wynika z liczby publikacji. Wynik na
+publikację porządkuje je według przeciętnego położenia publikacji,
+z przewagą jednostki C.
+
+## Wrażliwość na regułę remisów
+
+```{r}
+dyskretne <- oblicz_i3(przypisz_klasy(dane$publikacje, odniesienie,
+                                      remisy = "dyskretne"),
+                       dane$publikacje$jednostka)
+data.frame(jednostka = wynik$wyniki$jednostka,
+           ulamkowe = wynik$wyniki$I3_na_publikacje,
+           dyskretne = dyskretne$wyniki$I3_na_publikacje)
+```
+
+Reguła progowa przenosi bloki remisowe leżące na progach do klas wyższych.
+Przy zaokrągleniu cytowań do wielokrotności 5 bloki są większe, a różnica
+między regułami rośnie.
+
+```{r}
+dane5 <- generuj_cytowania(n = 1000, wielokrotnosc = 5)
+odniesienie5 <- przygotuj_odniesienie(dane5$odniesienie)
+sapply(c("ulamkowe", "dyskretne"), function(r) {
+  oblicz_i3(przypisz_klasy(dane5$publikacje, odniesienie5, remisy = r),
+            dane5$publikacje$jednostka)$wyniki$I3_na_publikacje
+})
+```

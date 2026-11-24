@@ -1,0 +1,84 @@
+url: https://milakasz08.github.io/WskaznikI3R/
+
+lang: pl
+
+template:
+  bootstrap: 5
+  bslib:
+    primary: "#2E5E9E"
+    base_font: {google: "Source Sans 3"}
+    code_font: {google: "JetBrains Mono"}
+
+home:
+  title: Nieparametryczny wskaźnik oddziaływania I3*
+  description: >
+    Pakiet języka R do oceny oddziaływania publikacji wskaźnikiem I3*,
+    z klasami percentylowymi zbioru odniesienia i ułamkowym podziałem
+    publikacji o jednakowej liczbie cytowań.
+
+navbar:
+  structure:
+    left:  [algorytm, poradnik, reference, news]
+    right: [aplikacja, oserwisie, github]
+  components:
+    reference:
+      text: Dokumentacja funkcji
+      href: reference/index.html
+    news:
+      text: Zmiany
+      href: news/index.html
+    algorytm:
+      text: Algorytm
+      href: articles/algorytm.html
+    poradnik:
+      text: Poradnik
+      href: articles/poradnik.html
+    aplikacja:
+      text: Aplikacja
+      href: app/index.html
+    oserwisie:
+      text: O serwisie
+      href: articles/o-serwisie.html
+
+articles:
+  - title: Metoda
+    navbar: ~
+    contents:
+      - articles/algorytm
+  - title: Użycie
+    contents:
+      - poradnik
+  - title: Informacje
+    contents:
+      - articles/o-serwisie
+
+reference:
+  - title: Zbiór odniesienia i klasy
+    desc: Bloki remisowe, progi i udziały publikacji w klasach percentylowych.
+    contents:
+      - przygotuj_odniesienie
+      - przypisz_klasy
+      - wypisanie_i3
+  - title: Wskaźnik
+    desc: Wynik surowy, wynik na publikację i liczności klas jednostek.
+    contents:
+      - oblicz_i3
+      - metody_wynik_i3
+  - title: Dane
+    desc: Procedura generowania liczb cytowań o znanym rozkładzie i zbiory przykładowe.
+    contents:
+      - generuj_cytowania
+      - odniesienie_przyklad
+      - jednostki_przyklad
+  - title: Pakiet
+    contents:
+      - WskaznikI3R-package
+
+footer:
+  structure:
+    left: nota
+    right: built_with
+  components:
+    nota: >
+      Serwis stanowi integralną część pracy licencjackiej na kierunku
+      elektroniczne przetwarzanie informacji, Instytut Studiów Informacyjnych UJ.

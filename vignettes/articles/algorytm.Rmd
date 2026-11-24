@@ -1,0 +1,63 @@
+---
+title: "Algorytm"
+subtitle: "Wskaźnik I3* oparty na klasach percentylowych"
+bibliography: literatura.bib
+link-citations: true
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>", fig.width = 6.5,
+                      fig.height = 4)
+library(WskaznikI3R)
+```
+
+Strona opisuje metodę zaimplementowaną w pakiecie: konstrukcję wskaźnika,
+reguły przypisania publikacji do klas, założenia i granice stosowalności.
+Wzory zachowują notację artykułu źródłowego [@leydesdorff2019i3].
+
+## Wskaźnik
+
+$$
+I3^* = \sum_{j=1}^{J} w_j n_j, \qquad
+\frac{I3^*}{N} = \sum_{j=1}^{J} w_j \frac{n_j}{N}
+$$
+
+Liczność $n_j$ jest liczbą publikacji jednostki w klasie percentylowej $j$
+zbioru odniesienia, a $w_j$ wagą klasy. Wskaźnik w postaci surowej łączy
+liczbę publikacji z ich położeniem w rozkładzie cytowań, więc rośnie
+z wielkością dorobku. Wskaźnik na publikację jest średnią wagą klasy
+jednej publikacji. Schemat I3\* stosuje klasy dolnych 50%, kolejnych 40%,
+kolejnych 9% i górnego 1%, z wagami 1, 2, 10 i 100.
+
+## Przypisanie do klas przy remisach
+
+Publikacje o jednakowej liczbie cytowań tworzą w zbiorze odniesienia blok
+remisowy. Blok $g$ publikacji, poniżej którego leży $b$ publikacji
+o mniejszej liczbie cytowań, zajmuje przedział
+$[100 b / M,\ 100 (b + g) / M]$. Reguła ułamkowa przypisuje publikacji
+z bloku udział w każdej klasie równy części przedziału bloku leżącej
+w klasie [@waltman2013percentiles]:
+
+$$
+s_j = \frac{\left|\left[P_d, P_g\right] \cap
+\left[\pi_{j-1}, \pi_j\right]\right|}{P_g - P_d}.
+$$
+
+Bloki pokrywają skalę od 0 do 100 dokładnie raz, więc zbiór odniesienia
+przypisany do samego siebie odtwarza nominalne liczności klas.
+
+Reguła progowa wyznacza próg cytowań każdej klasy z publikacji na
+odpowiedniej pozycji w porządku malejącym i przenosi cały blok remisowy
+na progu do klasy wyższej. Wartości I3\* czasopism w artykule źródłowym
+powstały według tej reguły [@leydesdorff2019i3].
+
+## Granice stosowalności
+
+Wynik zależy od definicji zbioru odniesienia: dziedziny, rocznika, typu
+dokumentu i okna cytowań. Porównanie jednostek wymaga wspólnego odniesienia;
+addytywność wyniku surowego zachodzi tylko przy tym samym odniesieniu,
+tych samych wagach i tej samej regule remisów. Wagi klas są decyzją
+ocenną. Wskaźnik opisuje położenie publikacji w rozkładzie cytowań, a jego
+odczytanie jako miary jakości badań wymaga dodatkowej interpretacji.
+
+## Bibliografia
